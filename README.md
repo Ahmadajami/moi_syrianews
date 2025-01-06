@@ -15,6 +15,10 @@ The Syria News App is a dedicated platform developed for the Ministry of Informa
 
 This app also integrates Firebase for backend services such as authentication, database management, and cloud messaging. For security reasons, all Firebase configuration files are excluded from the repository. If you clone or pull this project, you must create your own Firebase project and configuration files for the app to function properly.
 
+# Why Avoid Using flutter_dotenv for Sensitive Environment Variables
+
+In contrast, packages such as `flutter_dotenv` work by adding the `.env` file to the assets folder and reading its contents at runtime. This is very insecure because any asset file can easily be extracted by unzipping the release APK, thus exposing the environment variables.
+
 
 ## Getting Started 🚀
 
@@ -111,7 +115,7 @@ This project uses [flutter_localizations][flutter_localizations_link] and adhere
 
 Update the `CFBundleLocalizations` array in the `Info.plist` file located at `ios/Runner/Info.plist`:
 
-```xml
+``` xml
 <key>CFBundleLocalizations</key>
 <array>
     <string>en</string>

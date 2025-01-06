@@ -24,8 +24,14 @@ Future<void> bootstrap({
   FutureOr<void> Function()? init,
 }) async {
   WidgetsFlutterBinding.ensureInitialized();
-  await init?.call();
-  FlutterError.onError = (details) {
+  try {
+    await init?.call();
+    log('Firebase Connected');
+
+  }catch(e){
+    log('Firebase Connection Failed');
+  }
+    FlutterError.onError = (details) {
     log(details.exceptionAsString(), stackTrace: details.stack);
   };
 

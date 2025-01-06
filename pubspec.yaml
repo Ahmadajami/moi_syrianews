@@ -8,6 +8,7 @@ environment:
 
 dependencies:
   bloc: ^8.1.4
+  envied: ^1.0.0
   firebase_core: ^3.9.0
   flutter:
     sdk: flutter
@@ -18,6 +19,8 @@ dependencies:
 
 dev_dependencies:
   bloc_test: ^9.1.7
+  build_runner: ^2.4.13
+  envied_generator: ^1.0.0
   flutter_test:
     sdk: flutter
   mocktail: ^1.0.4
