@@ -1,7 +1,7 @@
 name: syria_news
 
 concurrency:
-  group: $-$
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 on:
@@ -20,6 +20,32 @@ jobs:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
     with:
       flutter_channel: stable
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ inputs.flutter_channel }}
+
+      - name: Create FIREBASE_KEYS.env file
+        run: echo "$FIREBASE_KEYS_PROD" > FIREBASE_KEYS.env
+        env:
+          FIREBASE_KEYS_PROD: ${{ secrets.FIREBASE_KEYS_PROD }}
+
+      - name: Create google-services.json file
+        run: echo "$GOOGLE_SERVICE_PROD" > android/app/google-services.json
+        env:
+          GOOGLE_SERVICE_PROD: ${{ secrets.GOOGLE_SERVICE_PROD }}
+
+      - name: Run build_runner
+        run: dart run build_runner build
+
+      - name: Run Flutter workflow
+        run: |
+          flutter pub get
+          flutter build apk
 
   spell-check:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/spell_check.yml@v1

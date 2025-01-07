@@ -101,7 +101,7 @@ app.*.map.json
 firebase.json
 android/app/src/development/google-services.json
 android/app/src/staging/google-services.json
-android/app/src/google-services.json
+android/app/google-services.json
 ios/Runner/GoogleService-Info.plist
 FIREBASE_KEYS.env
 env.g.dart
