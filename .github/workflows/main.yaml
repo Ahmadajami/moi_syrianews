@@ -1,4 +1,9 @@
 name: Syria News
+
+env:
+    GOOGLE_SERVICE_PROD: ${{ secrets.GOOGLE_SERVICE_PROD }}
+    FIREBASE_KEYS_PROD: ${{ secrets.FIREBASE_KEYS_PROD }}
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -12,6 +17,7 @@ on:
       - main
 
 jobs:
+
   semantic-pull-request:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/semantic_pull_request.yml@v1
 
@@ -20,14 +26,11 @@ jobs:
     with:
       flutter_channel: stable
         setup:'echo "$GOOGLE_SERVICE_PROD" > android/app/google-services.json && echo "$FIREBASE_KEYS_PROD" > FIREBASE_KEYS.env && dart run build_runner build'
-  env:
-    GOOGLE_SERVICE_PROD: ${{ secrets.GOOGLE_SERVICE_PROD }}
-    FIREBASE_KEYS_PROD: ${{ secrets.FIREBASE_KEYS_PROD }}
 
 
     spell-check:
-    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/spell_check.yml@v1
-    with:
+      uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/spell_check.yml@v1
+      with:
       includes: |
         **/*.md
       modified_files_only: false
