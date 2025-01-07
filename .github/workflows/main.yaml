@@ -12,32 +12,20 @@ on:
       - main
 
 jobs:
-
   semantic-pull-request:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/semantic_pull_request.yml@v1
 
   build:
-    env:
-      GOOGLE_SERVICE_PROD: ${{ secrets.GOOGLE_SERVICE_PROD }}
-      FIREBASE_KEYS_PROD: ${{ secrets.FIREBASE_KEYS_PROD }}
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
     with:
       flutter_channel: stable
-      setup: 'echo "Writing Google Services configuration to android/app/google-services.json"
-echo "$GOOGLE_SERVICE_PROD" > android/app/google-services.json
-echo "Google Services configuration written successfully."
-
-echo "Writing Firebase keys to FIREBASE_KEYS.env"
-echo "$FIREBASE_KEYS_PROD" > FIREBASE_KEYS.env
-echo "Firebase keys written successfully."
-
-echo "Running build_runner build"
-dart run build_runner build
-echo "build_runner build completed."'
+        setup:'echo "$GOOGLE_SERVICE_PROD" > android/app/google-services.json && echo "$FIREBASE_KEYS_PROD" > FIREBASE_KEYS.env && dart run build_runner build'
+  env:
+    GOOGLE_SERVICE_PROD: ${{ secrets.GOOGLE_SERVICE_PROD }}
+    FIREBASE_KEYS_PROD: ${{ secrets.FIREBASE_KEYS_PROD }}
 
 
-
-  spell-check:
+    spell-check:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/spell_check.yml@v1
     with:
       includes: |
