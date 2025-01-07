@@ -17,6 +17,16 @@ on:
       - main
 
 jobs:
+  view-env:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Display specific environment variables
+        env:
+          GOOGLE_SERVICE_PROD: ${{ secrets.GOOGLE_SERVICE_PROD }}
+          FIREBASE_KEYS_PROD: ${{ secrets.FIREBASE_KEYS_PROD }}
+        run: |
+          echo "GOOGLE_SERVICE_PROD: $GOOGLE_SERVICE_PROD"
+          echo "FIREBASE_KEYS_PROD: $FIREBASE_KEYS_PROD"
 
   semantic-pull-request:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/semantic_pull_request.yml@v1
