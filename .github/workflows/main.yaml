@@ -1,34 +1,21 @@
-name: syria_news
+name: Syria News
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
-
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
 
 jobs:
   semantic-pull-request:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/semantic_pull_request.yml@v1
 
   build:
-    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
-    with:
-      flutter_channel: stable
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v3
-
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: ${{ inputs.flutter_channel }}
-
       - name: Create FIREBASE_KEYS.env file
         run: echo "$FIREBASE_KEYS_PROD" > FIREBASE_KEYS.env
         env:
@@ -39,17 +26,12 @@ jobs:
         env:
           GOOGLE_SERVICE_PROD: ${{ secrets.GOOGLE_SERVICE_PROD }}
 
-      - name: Run build_runner
-        run: dart run build_runner build
-
-      - name: Run Flutter workflow
-        run: |
-          flutter pub get
-          flutter build apk
+      - uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
+        with:
+          flutter_channel: stable
 
   spell-check:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/spell_check.yml@v1
     with:
-      includes: |
-        **/*.md
+      includes: '**/*.md'
       modified_files_only: false
