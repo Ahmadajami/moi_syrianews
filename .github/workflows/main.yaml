@@ -19,7 +19,7 @@ jobs:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
     with:
       flutter_channel: stable
-      setup: 'dart run build_runner build  && echo "$GOOGLE_SERVICE_PROD" > android/app/google-services.json &&  echo "$FIREBASE_KEYS_PROD" > FIREBASE_KEYS.env '
+      setup: 'dart run build_runner build  && echo "$GOOGLE_SERVICE_PROD" > android/app/google-services.json &&  echo "$FIREBASE_KEYS_PROD" > FIREBASE_KEYS.env'
     env:
       GOOGLE_SERVICE_PROD: ${{ secrets.GOOGLE_SERVICE_PROD }}
       FIREBASE_KEYS_PROD: ${{ secrets.FIREBASE_KEYS_PROD }}
