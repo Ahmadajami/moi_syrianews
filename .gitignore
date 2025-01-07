@@ -107,6 +107,8 @@ FIREBASE_KEYS.env
 env.g.dart
 lib/firebase_options_dev.dart
 lib/firebase_options_stg.dart
+lib/main_development.dart
+lib/main_staging.dart.dart
 
 # Exceptions to the above rules.
 !**/ios/**/default.mode1v3
