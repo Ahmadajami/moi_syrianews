@@ -27,11 +27,10 @@ Future<void> bootstrap({
   try {
     await init?.call();
     log('Firebase Connected');
-
-  }catch(e){
+  } catch (e) {
     log('Firebase Connection Failed');
   }
-    FlutterError.onError = (details) {
+  FlutterError.onError = (details) {
     log(details.exceptionAsString(), stackTrace: details.stack);
   };
 

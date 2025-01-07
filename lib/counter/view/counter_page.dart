@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:syria_news/counter/counter.dart';
@@ -24,9 +23,7 @@ class CounterView extends StatefulWidget {
 }
 
 class _CounterViewState extends State<CounterView> {
-   void drake(){
-
-   }
+  void drake() {}
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
@@ -60,7 +57,8 @@ class CounterText extends StatelessWidget {
     final theme = Theme.of(context);
     final count = context.select((CounterCubit cubit) => cubit.state);
     return TextButton(
-      child:Text('$count', style: theme.textTheme.displayLarge) ,
-      onPressed: (){},);
+      child: Text('$count', style: theme.textTheme.displayLarge),
+      onPressed: () {},
+    );
   }
 }

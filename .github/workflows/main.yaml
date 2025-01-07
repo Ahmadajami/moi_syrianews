@@ -11,11 +11,10 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  semantic-pull-request:
-    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/semantic_pull_request.yml@v1
-
-  build:
+  prepare_environment:
+    runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - name: Create FIREBASE_KEYS.env file
         run: echo "$FIREBASE_KEYS_PROD" > FIREBASE_KEYS.env
         env:
@@ -26,9 +25,11 @@ jobs:
         env:
           GOOGLE_SERVICE_PROD: ${{ secrets.GOOGLE_SERVICE_PROD }}
 
-      - uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
-        with:
-          flutter_channel: stable
+  build:
+    needs: prepare_environment
+    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
+    with:
+      flutter_channel: stable
 
   spell-check:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/spell_check.yml@v1
