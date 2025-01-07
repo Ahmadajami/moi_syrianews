@@ -14,6 +14,7 @@ jobs:
   prepare_environment:
     runs-on: ubuntu-latest 
     steps:
+      - uses: actions/checkout@v3 
       - name: Create FIREBASE_KEYS.env file
         run: echo "$FIREBASE_KEYS_PROD" > FIREBASE_KEYS.env
         env:
