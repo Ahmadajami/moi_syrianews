@@ -11,6 +11,9 @@ on:
     branches:
       - main
 
+env:
+    GOOGLE_SERVICE_PROD: ${{ secrets.GOOGLE_SERVICE_PROD }}
+    FIREBASE_KEYS_PROD: ${{ secrets.FIREBASE_KEYS_PROD }}
 
 jobs:
   semantic-pull-request:
@@ -21,9 +24,7 @@ jobs:
     with:
       flutter_channel: stable
       setup: 'dart run build_runner build  && echo "$GOOGLE_SERVICE_PROD" > android/app/google-services.json &&  echo "$FIREBASE_KEYS_PROD" > FIREBASE_KEYS.env'
-    env:
-      GOOGLE_SERVICE_PROD: ${{ secrets.GOOGLE_SERVICE_PROD }}
-      FIREBASE_KEYS_PROD: ${{ secrets.FIREBASE_KEYS_PROD }}
+
 
 
   spell-check:
