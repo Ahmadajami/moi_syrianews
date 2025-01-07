@@ -1,9 +1,5 @@
 name: Syria News
 
-env:
-  GOOGLE_SERVICE_PROD: ${{ secrets.GOOGLE_SERVICE_PROD }}
-  FIREBASE_KEYS_PROD: ${{ secrets.FIREBASE_KEYS_PROD }}
-
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -24,7 +20,7 @@ jobs:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
     with:
       flutter_channel: stable
-      setup: 'echo "$GOOGLE_SERVICE_PROD" > android/app/google-services.json && echo "$FIREBASE_KEYS_PROD" > FIREBASE_KEYS.env && dart run build_runner build'
+      setup: 'echo  " ${{secrets.GOOGLE_SERVICE_PROD}} " > android/app/google-services.json && echo "${{secrets.FIREBASE_KEYS_PROD}}" > FIREBASE_KEYS.env && dart run build_runner build'
 
   spell-check:
       uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/spell_check.yml@v1
