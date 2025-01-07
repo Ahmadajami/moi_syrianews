@@ -23,9 +23,17 @@ jobs:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
     with:
       flutter_channel: stable
-      setup: 'echo "$GOOGLE_SERVICE_PROD" > android/app/google-services.json && 
-echo "$FIREBASE_KEYS_PROD" > FIREBASE_KEYS.env && 
-dart run build_runner build'
+      setup: 'echo "Writing Google Services configuration to android/app/google-services.json"
+echo "$GOOGLE_SERVICE_PROD" > android/app/google-services.json
+echo "Google Services configuration written successfully."
+
+echo "Writing Firebase keys to FIREBASE_KEYS.env"
+echo "$FIREBASE_KEYS_PROD" > FIREBASE_KEYS.env
+echo "Firebase keys written successfully."
+
+echo "Running build_runner build"
+dart run build_runner build
+echo "build_runner build completed."'
 
 
 
