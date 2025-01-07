@@ -25,9 +25,10 @@ jobs:
     with:
       flutter_channel: stable
       setup: |
-        echo " $FIREBASE_KEYS_PROD " > FIREBASE_KEYS.env
-        echo " $GOOGLE_SERVICE_PROD " > android/app/google-services.json
-        dart run build_runner build
+        echo "Testing environment variables..."
+        echo "$FIREBASE_KEYS_PROD" | head -c 100
+        echo "$GOOGLE_SERVICE_PROD" | head -c 100
+        echo "Environment variables tested."
       
 
   spell-check:
