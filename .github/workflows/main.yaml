@@ -17,6 +17,27 @@ on:
       - main
 
 jobs:
+  test-secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print environment variables
+        env:
+          GOOGLE_SERVICE_PROD: ${{ secrets.GOOGLE_SERVICE_PROD }}
+          FIREBASE_KEYS_PROD: ${{ secrets.FIREBASE_KEYS_PROD }}
+        run: |
+          echo "Testing environment variables..."
+          if [ -z "$FIREBASE_KEYS_PROD" ]; then
+            echo "FIREBASE_KEYS_PROD is not set or empty!"
+          else
+            echo "FIREBASE_KEYS_PROD is set."
+          fi
+
+          if [ -z "$GOOGLE_SERVICE_PROD" ]; then
+            echo "GOOGLE_SERVICE_PROD is not set or empty!"
+          else
+            echo "GOOGLE_SERVICE_PROD is set."
+          fi
+          
   semantic-pull-request:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/semantic_pull_request.yml@v1
 
@@ -29,8 +50,8 @@ jobs:
         echo "$FIREBASE_KEYS_PROD" | head -c 100
         echo "$GOOGLE_SERVICE_PROD" | head -c 100
         echo "Environment variables tested."
-      
-
+  
+  
   spell-check:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/spell_check.yml@v1
     with:
