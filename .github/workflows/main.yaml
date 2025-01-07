@@ -1,39 +1,32 @@
 name: Syria News
-
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
-
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-jobs:
-  prepare_environment:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Create FIREBASE_KEYS.env file
-        run: echo "$FIREBASE_KEYS_PROD" > FIREBASE_KEYS.env
-        env:
-          FIREBASE_KEYS_PROD: ${{ secrets.FIREBASE_KEYS_PROD }}
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
-      - name: Create google-services.json file
-        run: echo "$GOOGLE_SERVICE_PROD" > android/app/google-services.json
-        env:
-          GOOGLE_SERVICE_PROD: ${{ secrets.GOOGLE_SERVICE_PROD }}
+jobs:
+  semantic-pull-request:
+    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/semantic_pull_request.yml@v1
 
   build:
-    needs: prepare_environment
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
     with:
       flutter_channel: stable
-      setup: 'dart run build_runner build'
+      setup: 'dart run build_runner build  && echo "$GOOGLE_SERVICE_PROD" > android/app/google-services.json &&  echo "$FIREBASE_KEYS_PROD" > FIREBASE_KEYS.env '
+    env:
+      GOOGLE_SERVICE_PROD: ${{ secrets.GOOGLE_SERVICE_PROD }}
+      FIREBASE_KEYS_PROD: ${{ secrets.FIREBASE_KEYS_PROD }}
 
   spell-check:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/spell_check.yml@v1
     with:
-      includes: '**/*.md'
+      includes: |
+        **/*.md
       modified_files_only: false
