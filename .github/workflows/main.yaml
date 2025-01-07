@@ -11,6 +11,7 @@ on:
     branches:
       - main
 
+
 jobs:
   semantic-pull-request:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/semantic_pull_request.yml@v1
@@ -23,6 +24,7 @@ jobs:
     env:
       GOOGLE_SERVICE_PROD: ${{ secrets.GOOGLE_SERVICE_PROD }}
       FIREBASE_KEYS_PROD: ${{ secrets.FIREBASE_KEYS_PROD }}
+
 
   spell-check:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/spell_check.yml@v1
