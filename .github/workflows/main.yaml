@@ -25,11 +25,9 @@ jobs:
     with:
       flutter_channel: stable
       setup: |
-        echo " $GOOGLE_SERVICE_PROD "
-        echo "Second line"
-    secrets:
-      GOOGLE_SERVICE_PROD: ${{ secrets.GOOGLE_SERVICE_PROD }}
-      FIREBASE_KEYS_PROD: ${{ secrets.FIREBASE_KEYS_PROD }}
+        echo "Using Google Service Key: ${{ secrets.GOOGLE_SERVICE_PROD }}"
+      
+   
 
 
 
