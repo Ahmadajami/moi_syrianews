@@ -24,8 +24,7 @@ jobs:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
     with:
       flutter_channel: stable
-      setup: |
-        touch FIREBASE_KEYS.env
+      setup: " touch FIREBASE_KEYS.env "
 
 
   spell-check:
