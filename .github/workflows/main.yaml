@@ -27,7 +27,6 @@ jobs:
       setup: |
         echo "$GOOGLE_SERVICE_PROD"
         echo "$FIREBASE_KEYS_PROD"
-        dart run build_runner build 
 
   spell-check:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/spell_check.yml@v1
