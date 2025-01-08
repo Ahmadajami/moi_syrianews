@@ -25,18 +25,8 @@ jobs:
     with:
       flutter_channel: stable
       setup: |
-        if [ -n "$GOOGLE_SERVICE_PROD" ]; then
-          echo "GOOGLE_SERVICE_PROD is set."
-        else
-          echo "Error: GOOGLE_SERVICE_PROD is not set." >&2
-          exit 1
-        fi
-        if [ -n "$FIREBASE_KEYS_PROD" ]; then
-          echo "FIREBASE_KEYS_PROD is set."
-        else
-          echo "Error: FIREBASE_KEYS_PROD is not set." >&2
-          exit 1
-        fi
+        touch FIREBASE_KEYS.env
+        echo "${{ secrets.FIREBASE_KEYS_PROD }}" >> FIREBASE_KEYS.env
 
   spell-check:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/spell_check.yml@v1
