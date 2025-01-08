@@ -1,8 +1,6 @@
 name: Syria News
 
-env:
-  GOOGLE_SERVICE_PROD: ${{ secrets.GOOGLE_SERVICE_PROD }}
-  FIREBASE_KEYS_PROD: ${{ secrets.FIREBASE_KEYS_PROD }}
+
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -21,10 +19,14 @@ jobs:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/semantic_pull_request.yml@v1
 
   build:
+    env:
+      GOOGLE_SERVICE_PROD: ${{ secrets.GOOGLE_SERVICE_PROD }}
+      FIREBASE_KEYS_PROD: ${{ secrets.FIREBASE_KEYS_PROD }}
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
     with:
       flutter_channel: stable
-      setup: echo "GOOGLE_SERVICE_PROD =${{ env.GOOGLE_SERVICE_PROD }}"
+      setup: echo "GOOGLE_SERVICE_PROD =${{ GOOGLE_SERVICE_PROD }}"
+
 
   spell-check:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/spell_check.yml@v1
