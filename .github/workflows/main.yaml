@@ -25,10 +25,8 @@ jobs:
     with:
       flutter_channel: stable
       setup: |
-        echo "$GOOGLE_SERVICE_PROD" > android/app/google-services.json && \
-        echo "$FIREBASE_KEYS_PROD" > FIREBASE_KEYS.env && \
-        cat android/app/google-services.json && \
-        cat FIREBASE_KEYS.env && \
+        echo "$GOOGLE_SERVICE_PROD"  \
+        echo "$FIREBASE_KEYS_PROD" \
         dart run build_runner build
 
   spell-check:
