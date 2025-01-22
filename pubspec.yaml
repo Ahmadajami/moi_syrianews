@@ -20,7 +20,7 @@ dependencies:
 dev_dependencies:
   bloc_test: ^9.1.7
   build_runner: ^2.4.13
-  envied_generator: ^1.0.0
+  envied_generator: ^1.1.0
   flutter_test:
     sdk: flutter
   mocktail: ^1.0.4
