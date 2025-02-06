@@ -9,7 +9,7 @@ environment:
 dependencies:
   bloc: ^8.1.4
   envied: ^1.0.0
-  firebase_core: ^3.9.0
+  firebase_core: ^3.11.0
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.6
